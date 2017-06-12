@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="Светофор на javascript">
+		<title>Светофор на javascript</title>
+		<!--build:css--><!--endbuild-->
+	</head>
+	<body>
+		<div class="wrapper">
+			<div class="content_container">
+				<div class="traffic_light_wrapper">
+					<div class="light_item red" id="red"></div>
+					<div class="light_item yellow" id="yellow"></div>
+					<div class="light_item green" id="green"></div>
+					<img src="./img/traffic_light_bg.png" alt="#">
+				</div>
+				<div class="control_panel">
+					<p>control panel</p>
+					<div class="for_input">
+						<input type="text" id="count" value="" maxlength="2">
+						<button class="button ok" id="ok">ок</button>
+					</div>
+					<div class="for_btn">
+						<button class="button start" id="start">start</button>
+						<button class="button stop" id="stop">stop</button>
+					</div>
+				</div>
+			</div>
+			//= ./html/footer.html
+		</div>
+		<!--build:js--><!--endbuild-->
+	</body>
+</html>

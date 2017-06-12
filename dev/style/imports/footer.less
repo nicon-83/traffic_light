@@ -1,0 +1,78 @@
+.footer{
+	flex: 0 0 auto;
+	justify-content: space-between;
+	font-size: 0.7rem;
+	padding: 0.5rem;
+	@media screen and (min-width: 450px){
+		font-size: 1rem;
+		justify-content: space-around;
+	}
+	background: @footer-bg;
+	display: flex;
+	word-spacing: 2px;
+	text-decoration: none;
+	color: @footer-color;
+	font-family: @footer-ff;
+	a{
+		color: @footer-color;
+		&:hover{
+			color:#000;
+			text-shadow: 1px 1px 1px rgba(255,255,255,0.8);
+		}
+	}
+	.left{
+		text-align: left;
+		line-height: 1.2rem;
+		.works{
+			cursor: pointer;
+			&:hover{
+				color: #000;
+				text-shadow: 1px 1px 1px rgba(255,255,255,0.8);
+			}
+		}
+	}
+	.right{
+		text-align: right;
+		line-height: 1.2rem;
+		span{
+			font-size: 1.2rem;
+			vertical-align: middle;
+			@media screen and (min-width: 450px){
+				font-size: 1.5rem;
+			}
+		}
+	}
+	.my_works{
+		width:300px;
+		font-size: 0.77rem;
+		@media screen and (min-width: 450px){
+			font-size: 0.85rem;
+			width:320px;
+		}
+		line-height: 2rem;
+		word-spacing: normal;
+		letter-spacing: 2px;
+		padding: 1rem;
+		border-radius: 5px;
+		background: @my-works-bg;
+		box-shadow: 2px 2px 5px rgba(44,44,44,0.7);
+		z-index: 10;
+		text-shadow: none;
+		&:after{
+			content: '';
+			display: block;
+			border: 15px solid transparent;
+			border-top-color: @my-works-bg;
+			position: absolute;
+			bottom: -30px;
+			left: ~'calc(30% - 15px)';
+			@media screen and (min-width: 450px){
+				left: ~'calc(40% - 15px)';
+			}
+		}
+		span{
+			color: @footer-color;
+			cursor: auto;
+		}
+	}
+}
