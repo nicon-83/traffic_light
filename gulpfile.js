@@ -3,7 +3,6 @@ var gulp = require('gulp'),
 	 minifyCss = require('gulp-clean-css'),
 	 autoprefixer = require('gulp-autoprefixer'),
 	 replace = require('gulp-html-replace'),
-	 connect = require('gulp-connect'),
 	 rigger = require('gulp-rigger'),
 	 sourcemaps = require('gulp-sourcemaps'),
 	 uglify = require('gulp-uglify'),
@@ -13,7 +12,7 @@ var gulp = require('gulp'),
 	 smartgrid = require('smart-grid'),
 	 gcmq = require('gulp-group-css-media-queries'),
 	 mkdirp = require('mkdirp'),
-	 livereload = require('livereload');
+	 browserSync = require('browser-sync').create();
 
 var settings = {
 	minifyCss: ({
@@ -36,9 +35,12 @@ var settings = {
 			'./js/general.js'
 		]
 	},
-	connect: {
-		root: './build/',
-		livereload: true
+	browserSync: {
+		server: {
+			baseDir: "./build/"
+		},
+		port: 8080,
+		open: false
 	}
 };
 
@@ -118,7 +120,7 @@ gulp.task('htmlCreator', function(){
 		.pipe(rigger())
 		.pipe(replace(settings.replace))
 		.pipe(gulp.dest(path.build.html))
-		.pipe(connect.reload());
+		.pipe(browserSync.reload({stream:true}));
 });
 
 gulp.task('cssCreator', function(){
@@ -128,7 +130,7 @@ gulp.task('cssCreator', function(){
 		.pipe(autoprefixer(settings.autoprefixer))
 		.pipe(minifyCss(settings.minifyCss))
 		.pipe(gulp.dest(path.build.css))
-		.pipe(connect.reload());
+		.pipe(browserSync.reload({stream:true}));
 });
 
 gulp.task('jsCreator', function (){
@@ -138,7 +140,7 @@ gulp.task('jsCreator', function (){
 		.pipe(uglify())
 		// .pipe(sourcemaps.write())
 		.pipe(gulp.dest(path.build.js))
-		.pipe(connect.reload());
+		.pipe(browserSync.reload({stream:true}));
 });
 
 gulp.task('imageBuild', function (){
@@ -151,11 +153,15 @@ gulp.task('imageBuild', function (){
 				{use: [pngquant()]}
 		]))
 		.pipe(gulp.dest(path.build.img))
-		.pipe(connect.reload());
+		.pipe(browserSync.reload({stream:true}));
 });
 
 gulp.task('webServer', function(){
 	connect.server(settings.connect);
+});
+
+gulp.task('bs', function() {
+	browserSync.init(settings.browserSync);
 });
 
 gulp.task('copyFiles', function(){
@@ -164,7 +170,7 @@ gulp.task('copyFiles', function(){
 });
 
 gulp.task('default', function(){
-	gulp.start('webServer', 'htmlCreator', 'cssCreator', 'jsCreator', 'imageBuild', 'copyFiles');
+	gulp.start('bs', 'htmlCreator', 'cssCreator', 'jsCreator', 'imageBuild', 'copyFiles');
 
 	gulp.watch([path.watch.html], function(event){
 		gulp.start('htmlCreator');
